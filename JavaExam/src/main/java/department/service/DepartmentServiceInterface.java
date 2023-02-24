@@ -11,4 +11,7 @@ public interface DepartmentServiceInterface {
     Double calculateSpendBudget(EmployeeServiceImpl employeeServiceImpl, Department department);
 
     String viewDepartment(Department departmentToShow, DepartmentService departmentService, EmployeeServiceImpl employeeServiceImpl);
+
+    void updateDepartment(String departmentId, String newDepartmentName, Double newDepartmentBudget,
+                          Department currentDepartment, EmployeeServiceImpl employeeServiceImpl);
 }

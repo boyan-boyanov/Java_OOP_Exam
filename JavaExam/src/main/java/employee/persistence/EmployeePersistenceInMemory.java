@@ -22,7 +22,8 @@ public class EmployeePersistenceInMemory implements EmployeePersistence {
     }
 
     public  HashMap<String, Employee> getHiredEmployees() {
-        return hiredEmployees;
+        return
+                hiredEmployees;
     }
 
     public  Employee getEmployeeById(String employeeId) {

@@ -2,12 +2,13 @@ package department.data;
 
 import java.util.HashSet;
 
-public class Department implements DepartmentInterface{
+public class Department implements DepartmentInterface {
     private final String departmentID;
 
-    private final String departmentName;
+    private String departmentName;
 
-    private final Double yearlyBudget;
+
+    private Double yearlyBudget;
 
     HashSet<String> assignedEmployee = new HashSet<>();
 
@@ -31,19 +32,25 @@ public class Department implements DepartmentInterface{
         return yearlyBudget;
     }
 
-    public void addEmployeeToList(String employeeId){
+    public void addEmployeeToList(String employeeId) {
         assignedEmployee.add(employeeId);
     }
 
-    public void removeEmployeeFromList(String employeeId){
+    public void removeEmployeeFromList(String employeeId) {
         assignedEmployee.remove(employeeId);
     }
 
 
-    public HashSet<String> getAssignedEmployee(){
+    public HashSet<String> getAssignedEmployee() {
         return assignedEmployee;
     }
 
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
 
+    public void setYearlyBudget(Double yearlyBudget) {
+        this.yearlyBudget = yearlyBudget;
+    }
 
 }

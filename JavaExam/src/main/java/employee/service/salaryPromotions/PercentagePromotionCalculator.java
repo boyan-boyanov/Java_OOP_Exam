@@ -37,5 +37,5 @@ public class PercentagePromotionCalculator implements PromotionCalculator {
 
     }
 
-    //TODO if is in department check for salary not increase budget
+
 }

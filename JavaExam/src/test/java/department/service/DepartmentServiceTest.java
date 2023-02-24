@@ -3,6 +3,7 @@ package department.service;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
+import department.service.updateDepartment.UpdateDepartmentService;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,12 +20,15 @@ public class DepartmentServiceTest {
     private DepartmentView departmentViewMock;
     private DepartmentService departmentService;
 
+    private UpdateDepartmentService updateDepartmentService;
+
     @Before
     public void setUp() {
         departmentPersistenceMock = mock(DepartmentPersistence.class);
         calculateBudgetMock = mock(CalculateBudget.class);
         departmentViewMock = mock(DepartmentView.class);
-        departmentService = new DepartmentService(departmentPersistenceMock, calculateBudgetMock, departmentViewMock);
+        updateDepartmentService = mock(UpdateDepartmentService.class);
+        departmentService = new DepartmentService(departmentPersistenceMock, calculateBudgetMock, departmentViewMock, updateDepartmentService);
     }
 
     @Test

@@ -11,7 +11,6 @@ public class Employee {
 
     private String workInDepartment;
 
-
     public Employee(String employeeID, String firstName, String lastName, Double salary) {
         this.employeeID = employeeID;
         this.firstName = firstName;

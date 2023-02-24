@@ -3,6 +3,7 @@ package org.example;
 import department.data.Department;
 import department.persistence.DepartmentPersistenceInMemory;
 import department.service.DepartmentService;
+import department.service.updateDepartment.UpdateDepartment;
 import department.viewer.ConsoleDepartmentViewer;
 import employee.data.Employee;
 import employee.persistence.EmployeePersistenceInMemory;
@@ -11,6 +12,7 @@ import employee.service.assignDepartment.EmployeeAssignDepartment;
 import department.service.calculateBudget.CalculateDepartmentSpendBudget;
 import employee.service.salaryPromotions.PercentagePromotionCalculator;
 import employee.viewer.ConsoleEmployeeViewer;
+import printers.PrintFile;
 import printers.Printer;
 
 import java.util.HashMap;
@@ -24,7 +26,10 @@ public class Main {
         EmployeeServiceImpl employeeServiceImpl = new EmployeeServiceImpl(new EmployeePersistenceInMemory(),
                 new ConsoleEmployeeViewer(), new PercentagePromotionCalculator(), new EmployeeAssignDepartment());
 
-        DepartmentService departmentService = new DepartmentService(new DepartmentPersistenceInMemory(), new CalculateDepartmentSpendBudget(), new ConsoleDepartmentViewer());
+        DepartmentService departmentService = new DepartmentService(new DepartmentPersistenceInMemory(),
+                new CalculateDepartmentSpendBudget(), new ConsoleDepartmentViewer(), new UpdateDepartment());
+
+        PrintFile printFile = new PrintFile();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -38,14 +43,14 @@ public class Main {
                     try {
                         departmentService.createDepartment(input);
                     } catch (IllegalArgumentException exception) {
-                        Printer.Print(exception.getMessage());
+                        Printer.Print(exception.getMessage(), printFile);
                     }
                     break;
                 case "HireEmployee":
                     try {
                         employeeServiceImpl.hire(input);
                     } catch (IllegalArgumentException exception) {
-                        Printer.Print(exception.getMessage());
+                        Printer.Print(exception.getMessage(), printFile);
                     }
                     break;
                 case "AssignDepartment":
@@ -66,7 +71,7 @@ public class Main {
                             employeeServiceImpl.moveToDepartment(currentEmployee, assignToDepartment, currentDepartment, spendBudgetOnNewDepartment);
                         }
                     } catch (IllegalArgumentException exception) {
-                        Printer.Print(exception.getMessage());
+                        Printer.Print(exception.getMessage(), printFile);
                     }
                     break;
                 case "PromoteEmployee":
@@ -77,7 +82,7 @@ public class Main {
                         Employee currentEmployee = employeeServiceImpl.getEmployeeById(employeeId);
                         employeeServiceImpl.promote(currentEmployee, percentage, departmentService, employeeServiceImpl);
                     } catch (IllegalArgumentException exception) {
-                        Printer.Print(exception.getMessage());
+                        Printer.Print(exception.getMessage(), printFile);
                     }
                     break;
                 case "ShowEmployee":
@@ -85,9 +90,9 @@ public class Main {
                     try {
                         Employee currentEmployee = employeeServiceImpl.getEmployeeById(employeeId);
                         String employeeData = employeeServiceImpl.presentEmployeeData(currentEmployee, departmentService);
-                        Printer.Print(employeeData);
+                        Printer.Print(employeeData, printFile);
                     } catch (IllegalArgumentException exception) {
-                        Printer.Print(exception.getMessage());
+                        Printer.Print(exception.getMessage(), printFile);
                     }
                     break;
                 case "ShowDepartment":
@@ -95,10 +100,30 @@ public class Main {
                     try {
                         Department departmentToShow = departmentService.getDepartmentById(departmentId);
                         String departmentData = departmentService.viewDepartment(departmentToShow, departmentService, employeeServiceImpl);
-                        Printer.Print(departmentData);
+                        Printer.Print(departmentData, printFile);
                     } catch (IllegalArgumentException exception) {
-                        Printer.Print(exception.getMessage());
+                        Printer.Print(exception.getMessage(), printFile);
                     }
+                    break;
+                case "UpdateDepartment":
+                    try {
+                        departmentId = input[1];
+                        String newDepartmentName = input[2];
+                        Double newDepartmentBudget = Double.parseDouble(input[3]);
+                        Department currentDepartment = departmentService.getDepartmentById(departmentId);
+                        departmentService.updateDepartment(departmentId, newDepartmentName, newDepartmentBudget, currentDepartment, employeeServiceImpl);
+                    } catch (IllegalArgumentException exception) {
+                        Printer.Print(exception.getMessage(), printFile);
+                    }
+
+                    break;
+                default:
+                    String message = "Invalid command, choose one of this:" +
+                            System.getProperty("line.separator") +
+                            "CreateDepartment, UpdateDepartment, ShowDepartment" +
+                            System.getProperty("line.separator") +
+                            "HireEmployee, AssignDepartment, PromoteEmployee, ShowEmployee";
+                    Printer.Print(message, printFile);
                     break;
             }
 

@@ -1,23 +1,31 @@
 package printers;
 
-import org.junit.Before;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 public class PrinterTest {
-    private String message;
-
-    @Before
-    public void setUp() {
-        message = "Test Message";
-    }
-
-
     @Test
-    public void print() {
+    public void testPrint() {
+        String message = "Hello, world!";
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        PrintFile mockPrintFile = mock(PrintFile.class);
 
-        String expected = "Test Message";
-        assertEquals(message, expected);
+
+
+        Printer.Print(message, mockPrintFile);
+
+        assertTrue(message.equals(outContent.toString().trim()));
+
     }
 }
