@@ -12,7 +12,8 @@ import employee.service.assignDepartment.EmployeeAssignDepartment;
 import department.service.calculateBudget.CalculateDepartmentSpendBudget;
 import employee.service.salaryPromotions.PercentagePromotionCalculator;
 import employee.viewer.ConsoleEmployeeViewer;
-import printers.PrintFile;
+import printers.WriteAfterCreateObject;
+import printers.WriteLogFile;
 import printers.Printer;
 
 import java.util.HashMap;
@@ -29,7 +30,8 @@ public class Main {
         DepartmentService departmentService = new DepartmentService(new DepartmentPersistenceInMemory(),
                 new CalculateDepartmentSpendBudget(), new ConsoleDepartmentViewer(), new UpdateDepartment());
 
-        PrintFile printFile = new PrintFile();
+        WriteLogFile writeLogFile = new WriteLogFile();
+        WriteAfterCreateObject writeAfterCreateObject = new WriteAfterCreateObject();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -42,15 +44,19 @@ public class Main {
                 case "CreateDepartment":
                     try {
                         departmentService.createDepartment(input);
+                        writeAfterCreateObject.saveToFile("Department Id: " + input[1] + " Department name: " + input[2] + " Department budget: " + input[3], "departments");
                     } catch (IllegalArgumentException exception) {
-                        Printer.Print(exception.getMessage(), printFile);
+                        Printer.Print(exception.getMessage());
+                        writeLogFile.write(exception.getMessage());
                     }
                     break;
                 case "HireEmployee":
                     try {
                         employeeServiceImpl.hire(input);
+                        writeAfterCreateObject.saveToFile("Name: " + input[2] + " " + input[3] + "Salary: " + input[4], "employees");
                     } catch (IllegalArgumentException exception) {
-                        Printer.Print(exception.getMessage(), printFile);
+                        Printer.Print(exception.getMessage());
+                        writeLogFile.write(exception.getMessage());
                     }
                     break;
                 case "AssignDepartment":
@@ -71,7 +77,9 @@ public class Main {
                             employeeServiceImpl.moveToDepartment(currentEmployee, assignToDepartment, currentDepartment, spendBudgetOnNewDepartment);
                         }
                     } catch (IllegalArgumentException exception) {
-                        Printer.Print(exception.getMessage(), printFile);
+                        Printer.Print(exception.getMessage());
+                        writeLogFile.write(exception.getMessage());
+
                     }
                     break;
                 case "PromoteEmployee":
@@ -82,7 +90,8 @@ public class Main {
                         Employee currentEmployee = employeeServiceImpl.getEmployeeById(employeeId);
                         employeeServiceImpl.promote(currentEmployee, percentage, departmentService, employeeServiceImpl);
                     } catch (IllegalArgumentException exception) {
-                        Printer.Print(exception.getMessage(), printFile);
+                        Printer.Print(exception.getMessage());
+                        writeLogFile.write(exception.getMessage());
                     }
                     break;
                 case "ShowEmployee":
@@ -90,9 +99,11 @@ public class Main {
                     try {
                         Employee currentEmployee = employeeServiceImpl.getEmployeeById(employeeId);
                         String employeeData = employeeServiceImpl.presentEmployeeData(currentEmployee, departmentService);
-                        Printer.Print(employeeData, printFile);
+                        Printer.Print(employeeData);
+                        writeLogFile.write(employeeData);
                     } catch (IllegalArgumentException exception) {
-                        Printer.Print(exception.getMessage(), printFile);
+                        Printer.Print(exception.getMessage());
+                        writeLogFile.write(exception.getMessage());
                     }
                     break;
                 case "ShowDepartment":
@@ -100,9 +111,11 @@ public class Main {
                     try {
                         Department departmentToShow = departmentService.getDepartmentById(departmentId);
                         String departmentData = departmentService.viewDepartment(departmentToShow, departmentService, employeeServiceImpl);
-                        Printer.Print(departmentData, printFile);
+                        Printer.Print(departmentData);
+                        writeLogFile.write(departmentData);
                     } catch (IllegalArgumentException exception) {
-                        Printer.Print(exception.getMessage(), printFile);
+                        Printer.Print(exception.getMessage());
+                        writeLogFile.write(exception.getMessage());
                     }
                     break;
                 case "UpdateDepartment":
@@ -113,7 +126,8 @@ public class Main {
                         Department currentDepartment = departmentService.getDepartmentById(departmentId);
                         departmentService.updateDepartment(departmentId, newDepartmentName, newDepartmentBudget, currentDepartment, employeeServiceImpl);
                     } catch (IllegalArgumentException exception) {
-                        Printer.Print(exception.getMessage(), printFile);
+                        Printer.Print(exception.getMessage());
+                        writeLogFile.write(exception.getMessage());
                     }
 
                     break;
@@ -123,7 +137,8 @@ public class Main {
                             "CreateDepartment, UpdateDepartment, ShowDepartment" +
                             System.getProperty("line.separator") +
                             "HireEmployee, AssignDepartment, PromoteEmployee, ShowEmployee";
-                    Printer.Print(message, printFile);
+                    Printer.Print(message);
+                    writeLogFile.write(message);
                     break;
             }
 

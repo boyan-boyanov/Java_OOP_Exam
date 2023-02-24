@@ -19,11 +19,9 @@ public class PrinterTest {
         String message = "Hello, world!";
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        PrintFile mockPrintFile = mock(PrintFile.class);
 
 
-
-        Printer.Print(message, mockPrintFile);
+        Printer.Print(message);
 
         assertTrue(message.equals(outContent.toString().trim()));
 

@@ -9,11 +9,11 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class PrintFile {
+public class WriteLogFile {
     private final String filename;
     private final String directory = "src/main/java/output/";
 
-    public PrintFile() {
+    public WriteLogFile() {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmm ss");
         this.filename = this.directory + "EmployeeSystem_OUT_" + now.format(formatter) + ".txt";

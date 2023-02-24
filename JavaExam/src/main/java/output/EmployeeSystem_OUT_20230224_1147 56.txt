@@ -1,6 +1,0 @@
-Employee with ID 10001 does not exist!
-Department: Technology
-Budget: 1000000$/year.
-Not allocated: 1000000
-Employees: 
-Employee with ID 10001 does not exist!

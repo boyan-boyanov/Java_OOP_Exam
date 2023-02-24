@@ -1,0 +1,3 @@
+Invalid command, choose one of this:
+CreateDepartment, UpdateDepartment, ShowDepartment
+HireEmployee, AssignDepartment, PromoteEmployee, ShowEmployee
