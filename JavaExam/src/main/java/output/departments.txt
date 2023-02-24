@@ -1,2 +1,4 @@
 
 Department Id: 1001 Department name: Technology Department budget: 1000000
+Department Id: 1001 Department name: Technology Department budget: 1000000
+Department Id: 101 Department name: Accounting Department budget: 1000000

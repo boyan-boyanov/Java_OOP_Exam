@@ -1,0 +1,20 @@
+Unable to add employee 10003 to department 1001 as there is not enough budget!
+Employee ID: 10002, name: Jessica Dozer, Department: Technology, Salary: 144000.00
+Department: Technology
+Budget: 1000000$/year.
+Not allocated: 736000
+Employees: 10002, 10001
+Invalid command, choose one of this:
+CreateDepartment, UpdateDepartment, ShowDepartment
+HireEmployee, AssignDepartment, PromoteEmployee, ShowEmployee
+Employee with ID 102 does not exist!
+Employee with ID 103 does not exist!
+Department with ID 102 does not exist!
+Employee ID: 100, name: John Doe, Department: N/A, Salary: 1800000.00
+Invalid command, choose one of this:
+CreateDepartment, UpdateDepartment, ShowDepartment
+HireEmployee, AssignDepartment, PromoteEmployee, ShowEmployee
+Invalid command, choose one of this:
+CreateDepartment, UpdateDepartment, ShowDepartment
+HireEmployee, AssignDepartment, PromoteEmployee, ShowEmployee
+Unable to add employee 100 to department 101 as there is not enough budget!

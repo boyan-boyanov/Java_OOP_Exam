@@ -48,6 +48,10 @@ public class Main {
                     } catch (IllegalArgumentException exception) {
                         Printer.Print(exception.getMessage());
                         writeLogFile.write(exception.getMessage());
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        String message = "Missing parameters! Use format:\n" + "CreateDepartment {departmentID} {departmentName} {yearlyBudget}";
+                        Printer.Print(message);
+                        writeLogFile.write(message);
                     }
                     break;
                 case "HireEmployee":
@@ -57,13 +61,16 @@ public class Main {
                     } catch (IllegalArgumentException exception) {
                         Printer.Print(exception.getMessage());
                         writeLogFile.write(exception.getMessage());
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        String message = "Missing parameters! Use format:\n" + "HireEmployee {employeeID} {firstName} {lastName} {yearlySalary}";
+                        Printer.Print(message);
+                        writeLogFile.write(message);
                     }
                     break;
                 case "AssignDepartment":
-                    String employeeId = input[1];
-                    String departmentId = input[2];
-
                     try {
+                        String employeeId = input[1];
+                        String departmentId = input[2];
                         Employee currentEmployee = employeeServiceImpl.getEmployeeById(employeeId);
                         Department assignToDepartment = departmentService.getDepartmentById(departmentId);
 
@@ -79,24 +86,30 @@ public class Main {
                     } catch (IllegalArgumentException exception) {
                         Printer.Print(exception.getMessage());
                         writeLogFile.write(exception.getMessage());
-
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        String message = "Missing parameters! Use format:\n" + "AssignDepartment {employeeID} {departmentID}";
+                        Printer.Print(message);
+                        writeLogFile.write(message);
                     }
                     break;
                 case "PromoteEmployee":
-                    employeeId = input[1];
-                    Double percentage = Double.parseDouble(input[2]);
-
                     try {
+                        String employeeId = input[1];
+                        Double percentage = Double.parseDouble(input[2]);
                         Employee currentEmployee = employeeServiceImpl.getEmployeeById(employeeId);
                         employeeServiceImpl.promote(currentEmployee, percentage, departmentService, employeeServiceImpl);
                     } catch (IllegalArgumentException exception) {
                         Printer.Print(exception.getMessage());
                         writeLogFile.write(exception.getMessage());
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        String message = "Missing parameters! Use format:\n" + "PromoteEmployee {employeeID} {promotionPercentage}";
+                        Printer.Print(message);
+                        writeLogFile.write(message);
                     }
                     break;
                 case "ShowEmployee":
-                    employeeId = input[1];
                     try {
+                        String employeeId = input[1];
                         Employee currentEmployee = employeeServiceImpl.getEmployeeById(employeeId);
                         String employeeData = employeeServiceImpl.presentEmployeeData(currentEmployee, departmentService);
                         Printer.Print(employeeData);
@@ -104,11 +117,15 @@ public class Main {
                     } catch (IllegalArgumentException exception) {
                         Printer.Print(exception.getMessage());
                         writeLogFile.write(exception.getMessage());
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        String message = "Missing parameters! Use format:\n" + "ShowEmployee {employeeID}";
+                        Printer.Print(message);
+                        writeLogFile.write(message);
                     }
                     break;
                 case "ShowDepartment":
-                    departmentId = input[1];
                     try {
+                        String departmentId = input[1];
                         Department departmentToShow = departmentService.getDepartmentById(departmentId);
                         String departmentData = departmentService.viewDepartment(departmentToShow, departmentService, employeeServiceImpl);
                         Printer.Print(departmentData);
@@ -116,11 +133,15 @@ public class Main {
                     } catch (IllegalArgumentException exception) {
                         Printer.Print(exception.getMessage());
                         writeLogFile.write(exception.getMessage());
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        String message = "Missing parameters! Use format:\n" + "ShowDepartment {departmentID}";
+                        Printer.Print(message);
+                        writeLogFile.write(message);
                     }
                     break;
                 case "UpdateDepartment":
                     try {
-                        departmentId = input[1];
+                        String departmentId = input[1];
                         String newDepartmentName = input[2];
                         Double newDepartmentBudget = Double.parseDouble(input[3]);
                         Department currentDepartment = departmentService.getDepartmentById(departmentId);
@@ -128,8 +149,11 @@ public class Main {
                     } catch (IllegalArgumentException exception) {
                         Printer.Print(exception.getMessage());
                         writeLogFile.write(exception.getMessage());
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        String message = "Missing parameters! Use format:\n" + "UpdateDepartment {departmentID} {newName} {newBudget}";
+                        Printer.Print(message);
+                        writeLogFile.write(message);
                     }
-
                     break;
                 default:
                     String message = "Invalid command, choose one of this:" +
@@ -145,12 +169,6 @@ public class Main {
 
             input = scanner.nextLine().split("\\s+");
         }
-
-//        Employee employee = new Employee("123asd", "Georgi", "petrov", 222.33);
-//        hiredEmployees.put(employee.getEmployeeID(), employee);
-//
-        System.out.println(hiredEmployees);
-
 
     }
 

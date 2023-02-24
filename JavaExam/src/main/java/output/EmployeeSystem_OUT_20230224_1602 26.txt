@@ -1,0 +1,2 @@
+Missing parameters! Use format:
+UpdateDepartment {departmentID} {newName} {newBudget}
